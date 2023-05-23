@@ -33,11 +33,11 @@ class Queue:
 
 
 def initialize() -> Queue:
-    raise NotImplementedError("Queue.initialize() not defined")
+    return Queue()
 
 
 def isEmpty(data: Queue) -> bool:
-    raise NotImplementedError("Queue.isEmpty() not defined")
+    return data.first == data.last == None
 
 
 def enqueue(data: Queue, value: int) -> Queue:
@@ -53,4 +53,5 @@ def peek(data: Queue) -> Node:
 
 
 def clear(data: Queue) -> Queue:
-    raise NotImplementedError("Queue.clear() not defined")
+    data.first = data.last = None
+    return data

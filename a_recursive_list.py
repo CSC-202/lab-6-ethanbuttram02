@@ -1,16 +1,10 @@
 class Node:
-    value: any
-    next: any
-
     def __init__(self, value, next):
         self.value = value
         self.next = next
 
 
 class List:
-    first: Node
-    last: Node
-
     def __init__(self):
         self.first = None
         self.last = None
@@ -38,34 +32,31 @@ def initialize() -> List:
 # input : a list
 # output: true if the list is empty, false if the list is not
 def isEmpty(data: List) -> bool:
-    return data.head == None
+    return data.first == data.last == None
 
 # input : a list, an index position, a value to be inserted
 # output: a modified list with a value inserted at the index
 def addAtIndex(data: List, index: int, value: int) -> List:
-    if data.head == None:
-        data.head = Node(value, None)
-        return data
-    if index == 0:
-        data.head = Node(value, data.head.next)
-        return data
-    if index == 1:
-        data.head.next = Node(value, data.head.next)
-        return data
-    return addAtIndex(data.head.next, index - 1, value)
+    if isEmpty(data):
+        data.first = data.last = Node(value, None)
+    elif data.first.next == None:
+        data.first.next = Node(value, None)
+    elif 
+    
+    return addAtIndex(data, index - 1, value)
 
 # input : a list
 # output: a modified list with the value removed at a specified index
 def removeAtIndex(data: List, index: int) -> tuple[Node, List]:
-    if data.head == None:
+    if data.first == None:
         raise IndexError('List is empty')
     if index == 1:
-        if data.head.next == None:
+        if data.first.next == None:
             raise IndexError('Index out of range')
-        nodeReturn = data.head.next
-        data.head.next = data.head.next.next
+        nodeReturn = data.first.next
+        data.first.next = data.first.next.next
         return (nodeReturn, data)
-    return removeAtIndex(data.head.next, index-1)
+    return removeAtIndex(data.first.next, index-1)
 
 # input : a list, a value to be inserted
 # output: a modified list with a value inserted at the front
@@ -75,24 +66,17 @@ def addToFront(data: List, value: int) -> List:
 # input : a list, a value to be inserted
 # output: a modified list with a value inserted at the back
 def addToBack(data: List, value: int) -> List:
-    def helpMePls(data) -> int: # this will give me the length of the List
-        if isEmpty(data):
-            return 0
-        length = 1
-        while data.head.next != None:
-            length += 1
-        return length
-    addAtIndex(data, helpMePls(data) - 1, value)
+    addAtIndex(data, len(data) - 1, value)
 
 # input : a list
 # output: an element from the specified index
 def getElementAtIndex(data: List, index: int) -> Node:
     if index == 0:
-        return data.head
-    return getElementAtIndex(data.head.next, index - 1)
+        return data.first
+    return getElementAtIndex(data.first.next, index - 1)
 
 # input : a list
 # output: an empty list
 def clear(data: List) -> List:
-    data.head = None
+    data.first = None
     return data
