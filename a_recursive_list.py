@@ -31,34 +31,68 @@ class List:
             current = current.next
         return result
 
-
+# output: an empty list
 def initialize() -> List:
-    raise NotImplementedError("List.initialize() not defined")
+    return List()
 
-
+# input : a list
+# output: true if the list is empty, false if the list is not
 def isEmpty(data: List) -> bool:
-    raise NotImplementedError("List.isEmpty() not defined")
+    return data.head == None
 
-
+# input : a list, an index position, a value to be inserted
+# output: a modified list with a value inserted at the index
 def addAtIndex(data: List, index: int, value: int) -> List:
-    raise NotImplementedError("List.addAtIndex() not defined")
+    if data.head == None:
+        data.head = Node(value, None)
+        return data
+    if index == 0:
+        data.head = Node(value, data.head.next)
+        return data
+    if index == 1:
+        data.head.next = Node(value, data.head.next)
+        return data
+    return addAtIndex(data.head.next, index - 1, value)
 
-
+# input : a list
+# output: a modified list with the value removed at a specified index
 def removeAtIndex(data: List, index: int) -> tuple[Node, List]:
-    raise NotImplementedError("List.removeAtIndex() not defined")
+    if data.head == None:
+        raise IndexError('List is empty')
+    if index == 1:
+        if data.head.next == None:
+            raise IndexError('Index out of range')
+        nodeReturn = data.head.next
+        data.head.next = data.head.next.next
+        return (nodeReturn, data)
+    return removeAtIndex(data.head.next, index-1)
 
-
+# input : a list, a value to be inserted
+# output: a modified list with a value inserted at the front
 def addToFront(data: List, value: int) -> List:
-    raise NotImplementedError("List.addToFront() not defined")
+    addAtIndex(data, 0, value)
 
-
+# input : a list, a value to be inserted
+# output: a modified list with a value inserted at the back
 def addToBack(data: List, value: int) -> List:
-    raise NotImplementedError("List.addToBack() not defined")
+    def helpMePls(data) -> int: # this will give me the length of the List
+        if isEmpty(data):
+            return 0
+        length = 1
+        while data.head.next != None:
+            length += 1
+        return length
+    addAtIndex(data, helpMePls(data) - 1, value)
 
-
+# input : a list
+# output: an element from the specified index
 def getElementAtIndex(data: List, index: int) -> Node:
-    raise NotImplementedError("List.getElementAtIndex() not defined")
+    if index == 0:
+        return data.head
+    return getElementAtIndex(data.head.next, index - 1)
 
-
+# input : a list
+# output: an empty list
 def clear(data: List) -> List:
-    raise NotImplementedError("List.clear() not defined")
+    data.head = None
+    return data
