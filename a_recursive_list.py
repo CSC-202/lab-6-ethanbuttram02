@@ -37,31 +37,49 @@ def isEmpty(data: List) -> bool:
 # input : a list, an index position, a value to be inserted
 # output: a modified list with a value inserted at the index
 def addAtIndex(data: List, index: int, value: int) -> List:
+    def helper(v: Node, index: int, i: int):
+        if i == index:
+            v.next = Node(value, v.next)
+            return v
+        elif i > index:
+            raise IndexError('Index out of Range')
+        else:
+            return helper(v.next, index, i + 1)
+
     if isEmpty(data):
-        data.first = data.last = Node(value, None)
-    elif data.first.next == None:
-        data.first.next = Node(value, None)
-    elif 
+        data.first = Node(value, None)
+    elif index < 0 or index >= len(data):
+        raise IndexError('Index out of Range')
+    else:
+        helper(data.first, index, 0)
     
-    return addAtIndex(data, index - 1, value)
+    return data
+
 
 # input : a list
 # output: a modified list with the value removed at a specified index
 def removeAtIndex(data: List, index: int) -> tuple[Node, List]:
-    if data.first == None:
-        raise IndexError('List is empty')
-    if index == 1:
-        if data.first.next == None:
-            raise IndexError('Index out of range')
-        nodeReturn = data.first.next
-        data.first.next = data.first.next.next
-        return (nodeReturn, data)
-    return removeAtIndex(data.first.next, index-1)
+    def helper(v: Node, index: int, i: int):
+        if i + 1 == index:
+            target: Node = v.next
+            v.next = target.next
+            return target, data
+        elif i > index:
+            raise IndexError('Index out of Range')
+        else:
+            return helper(v.next, index, i + 1)
+
+    if isEmpty(data):
+        return None
+    elif index < 0 or index >= len(data):
+        raise IndexError('Index out of Range')
+    return helper(data.first, index, 0), data
 
 # input : a list, a value to be inserted
 # output: a modified list with a value inserted at the front
 def addToFront(data: List, value: int) -> List:
-    addAtIndex(data, 0, value)
+    data.first = Node(value, data.first)
+    return data
 
 # input : a list, a value to be inserted
 # output: a modified list with a value inserted at the back
@@ -71,9 +89,19 @@ def addToBack(data: List, value: int) -> List:
 # input : a list
 # output: an element from the specified index
 def getElementAtIndex(data: List, index: int) -> Node:
-    if index == 0:
-        return data.first
-    return getElementAtIndex(data.first.next, index - 1)
+    def helper(v: Node, index: int, i: int):
+        if i == index:
+            return v
+        elif i > index:
+            raise IndexError('Index out of Range')
+        else:
+            return helper(v.next, index, i + 1)
+
+    if isEmpty(data):
+        return None
+    elif index < 0 or index >= len(data):
+        raise IndexError('Index out of Range')
+    return helper(data.first, index, 0)
 
 # input : a list
 # output: an empty list
