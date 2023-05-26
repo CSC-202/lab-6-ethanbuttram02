@@ -119,8 +119,34 @@ else:
 
 # TODO: Write the tests and implement these functions
 # enqueue test
+Queue.enqueue(q, 2)
+Queue.enqueue(q, 3)
+Queue.enqueue(q, 5)
+if q.toPythonList() == [2, 3, 5]:
+    print('PASSED - enqueued 2, 3, and 5')
+else:
+    print('FAILED - enqueue')
+
 # dequeue test
+dequeued = Queue.dequeue(q)
+if q.toPythonList() == [3, 5]:
+    print('PASSED - dequeued 2 from the queue')
+else:
+    print('FAILED - dequeue')
+if dequeued[0].value == 2:
+    print('PASSED - dequeue retrieved the front of the queue')
+else:
+    print('FAILED - dequeue: value retrieval')
+
 # peek test
+if q.toPythonList() == [3, 5]:
+    print('PASSED - peek did not dequeue')
+else:
+    print('FAILED - peek')
+if Queue.peek(q).value == 3:
+    print('PASSED - peek retrieved 3 from the front of the queue')
+else:
+    print('FAILED - peek value retrieval')
 
 # Clear test
 Queue.clear(q)

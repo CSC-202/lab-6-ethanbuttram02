@@ -41,15 +41,24 @@ def isEmpty(data: Queue) -> bool:
 
 
 def enqueue(data: Queue, value: int) -> Queue:
-    raise NotImplementedError("Queue.enqueue() not defined")
+    if isEmpty(data):
+        data.first = data.last = Node(value, None)
+    else:
+        data.last.next = Node(value, None)
+        data.last = data.last.next
+    return data
 
 
 def dequeue(data: Queue) -> tuple[Node, Queue]:
-    raise NotImplementedError("Queue.dequeue() not defined")
+    if isEmpty(data):
+        raise IndexError('Queue is empty')
+    dequeuedNode = data.first
+    data.first = data.first.next
+    return dequeuedNode, data
 
 
 def peek(data: Queue) -> Node:
-    raise NotImplementedError("Queue.peek() not defined")
+    return data.first
 
 
 def clear(data: Queue) -> Queue:
