@@ -124,9 +124,6 @@ else:
 
 # Clear test
 Queue.clear(q)
-
-
-
 if len(q) == 0:
     print('PASSED - Queue is clear')
 else:
