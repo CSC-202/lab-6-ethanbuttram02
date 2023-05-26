@@ -108,6 +108,11 @@ else:
     print('FAILED - Stack is not clear')
 
 
+
+
+
+
+
 # QUEUE TESTS
 print('\nBegin Queue Tests')
 
